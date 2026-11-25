@@ -18,6 +18,10 @@ ENTRY = (
 
 
 def main():
+    # Only write a review that fits the contest's length window; anything
+    # shorter or longer would be rejected, so stop before touching disk.
+    if not 10 <= len(ENTRY) <= 500:
+        raise ValueError("entry length outside contest limits")
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8", newline="\n") as f:
         f.write(ENTRY)
